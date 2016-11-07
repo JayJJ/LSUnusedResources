@@ -361,7 +361,13 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
             if (![[ResourceStringSearcher sharedObject] containsResourceName:name]) {
                 if (!self.ignoreSimilarCheckbox.state
                     || ![[ResourceStringSearcher sharedObject] containsSimilarResourceName:name]) {
-                    [self.unusedResults addObject:[ResourceFileSearcher sharedObject].resNameInfoDict[name]];
+                    NSString *namepng = [name stringByAppendingString:@".png"];
+                    if (![[ResourceStringSearcher sharedObject] containsResourceName:namepng]) {
+                        if (!self.ignoreSimilarCheckbox.state
+                            || ![[ResourceStringSearcher sharedObject] containsSimilarResourceName:namepng]) {
+                            [self.unusedResults addObject:[ResourceFileSearcher sharedObject].resNameInfoDict[name]];
+                        }
+                    }
                 }
             }
         }
